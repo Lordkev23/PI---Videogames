@@ -4,12 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getVideogames } from "../actions";
 import Card from "./Card";
+import Paginated from "./Paginated";
 
 
-export default function(){
+export default function Home(){
     const dispatch = useDispatch()
     const allVideogames = useSelector(state => state.videogames)
-    console.log(allVideogames)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [videogamesPerPage, setVideogamesPerPage] = useState(15)
+    const indexOfTheLastVideogame = currentPage * videogamesPerPage
+    const indexOfTheFirstVideogame = indexOfTheLastVideogame - videogamesPerPage
+    const currentVideogames = allVideogames.slice(indexOfTheFirstVideogame, indexOfTheLastVideogame)
+
+    const paginated = (pageNumber)=>{
+        setCurrentPage(pageNumber)
+    }
+
+    // console.log(allVideogames)
     useEffect(() => {
         dispatch(getVideogames())
     }, [dispatch])
@@ -39,16 +50,19 @@ export default function(){
                     <option value = 'Rating'>Rating</option>
                 </select>
 
-            {
-                allVideogames?.map(element => 
+            <Paginated
+                videogamesPerPage={videogamesPerPage} allVideogames={allVideogames.length} paginated={paginated}
+            />
+
+            {currentVideogames && currentVideogames.map(element => 
                         (<div key={element.id}>
                             <Link to={'/home/'}>
                                 <Card name={element.name} genres={element.genres} image={element.background_image} />
                             </Link>
                         </div>)
-                    
                 )
             }
+            {/* {console.log(currentVideogames)} */}
 
             </div>
         </div>

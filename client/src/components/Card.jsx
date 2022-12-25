@@ -5,10 +5,8 @@ export default function Card({ image, name, genres }){
     return(
         <div>
             <h3>{name}</h3>
-            
             <h4>{genresShow}</h4>
-            
-            <img src={image} alt={name} width="200px" height="200px"/>
+            <img src={image} alt={name} width="300px" height="180px"/>
         </div>
     )
 }
