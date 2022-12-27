@@ -2,9 +2,34 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getVideogames } from "../actions";
+import { getVideogames, filterVideogamesPerStatus, filterCreated, getGenres, filterVideogamesPerGenre } from "../actions";
 import Card from "./Card";
 import Paginated from "./Paginated";
+import styled from "styled-components";
+
+const H1styled = styled.h1`
+display: flex;
+justify-content: center;
+color: #386eb1;
+font-style: oblique;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+`
+const BotonColor = styled.button`
+height: 50px;
+width: 120px;
+color:white;
+background-color: #20be5d;
+border-radius: 15%;
+font-size: medium;
+font-family: 'Times New Roman', Times, serif;
+&:hover{
+color:white;
+background-color: #42f191;
+border-radius: 15%;
+font-size: large;
+font-family: 'Times New Roman', Times, serif;
+}
+`
 
 
 export default function Home(){
@@ -21,28 +46,55 @@ export default function Home(){
     }
 
     // console.log(allVideogames)
-    useEffect(() => {
-        dispatch(getVideogames())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getVideogames())
+    // }, [dispatch])
 
     function handleClick(event){
         event.preventDefault();
         dispatch(getVideogames());
     }
 
+    function handleFilterStatus(event){
+        dispatch(filterVideogamesPerStatus(event.target.value))
+    }
+
+    // function handleFilterCreated(event){
+    //     dispatch(filterCreated(event.target.value))
+    // }
+
+     
+    useEffect(() => {
+        dispatch(getGenres())
+    }, [dispatch])
+
+    const genreses = useSelector(state => state.genres)
+
+    const handleFilterGenres = (event) =>
+        dispatch(filterVideogamesPerGenre(event.target.value))
+   
+
     return(
         <div>
             <Link to = '/videogames'>Create Videogame</Link>
-            <h1>The Videogame is Coming</h1>
-            <button onClick={event => {handleClick(event)}}>Reload All Videogames</button>
+            <H1styled>The Videogames are Coming...</H1styled>
+            <BotonColor onClick={event => handleClick(event)}>Reload All Videogames</BotonColor>
             <div>
 
-                <select>
+                <select onChange = {event => handleFilterStatus(event)}>
                     <option value = 'All'>All</option>
-                    <option value = 'Genre'>Genre</option>
+                    <option value = 'genres'>Genre</option>
                     <option value = 'Existing'>Existing</option>
-                    <option value = 'Created'>Created</option>
+                    <option value = 'created'>Created</option>
                 </select>
+
+                <select onClick={handleFilterGenres}>
+                    <option value='null'>Genre</option>
+                    {genreses&&genreses.map((i,key)=> 
+                        <option value={i} key={key}>{i}</option>)}
+
+                </select>
+                
 
                 <select>
                     <option value = 'Up'>Up</option>
@@ -57,7 +109,10 @@ export default function Home(){
             {currentVideogames && currentVideogames.map(element => 
                         (<div key={element.id}>
                             <Link to={'/home/'}>
-                                <Card name={element.name} genres={element.genres} image={element.background_image} />
+                                <Card
+                                    name={element.name} 
+                                    genres={element.genres} 
+                                    image={element.background_image} />
                             </Link>
                         </div>)
                 )
