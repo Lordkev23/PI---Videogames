@@ -82,24 +82,22 @@ export default function Home(){
             <div>
 
                 <select onChange = {event => handleFilterStatus(event)}>
-                    <option value = 'All'>All</option>
-                    <option value = 'genres'>Genre</option>
-                    <option value = 'Existing'>Existing</option>
-                    <option value = 'created'>Created</option>
+                    <option value = 'alfabeticOrder'>Alfabetic Order</option>
+                    <option value = 'a-z'>A-Z</option>
+                    <option value = 'z-a'>Z-A</option>
                 </select>
 
                 <select onClick={handleFilterGenres}>
-                    <option value='null'>Genre</option>
+                    <option value='null'>Genres</option>
                     {genreses&&genreses.map((i,key)=> 
                         <option value={i} key={key}>{i}</option>)}
 
                 </select>
                 
-
                 <select>
-                    <option value = 'Up'>Up</option>
-                    <option value = 'Down'>Down</option>
-                    <option value = 'Rating'>Rating</option>
+                    <option value = 'rating'>Rating</option>
+                    <option value = 'good'>Good</option>
+                    <option value = 'bad'>Bad</option>
                 </select>
 
             <Paginated
