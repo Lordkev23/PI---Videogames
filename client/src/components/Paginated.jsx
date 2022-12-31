@@ -24,21 +24,25 @@ display: inline;
 list-style: none;
 `
 
-export default function Paginated({videogamesPerPage, allVideogames, paginated}){
+export default function Paginated({videogamesPerPage, allVideogames, currentPage, paginated}){
     const pageNumber = []
 
     for(let i = 0; i < Math.ceil(allVideogames/videogamesPerPage); i++){
         pageNumber.push(i+1)
-        console.log(pageNumber);
+        // console.log(pageNumber);
     }
     return(
         <nav >
-            <UlChange className="paginated">
-                {pageNumber && pageNumber.map((number, index) => (
-                    <LiChange  key={index}>
+            <UlChange className="pagination">
+                {pageNumber && pageNumber.map((number, index) => {
+                    return (
+                    <LiChange  key={number}>
                         <Botonse className="number" onClick={()=>paginated(number)}>{number}</Botonse>
                     </LiChange>
-                ))}
+                )})}
+                <div>
+                    <span>{` Actual Page: ${currentPage}`}</span>
+                </div>
             </UlChange>
             
         </nav>

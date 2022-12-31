@@ -68,13 +68,21 @@ font-family: 'Times New Roman', Times, serif;
 }
 `
 
-export default function Card({ image, name, genres }){
+export default function Card({ image, name, genres, rating, createdInDb }){
     const genresShow = genres.length && genres.join(", ");
     return(
         <DivCard>
-            <H2styled>{name}</H2styled>
-            <H4styled>{genresShow}</H4styled>
-            <Imgcard src={image} alt={name} width="300px" height="180px"/>
+            <div>
+                <H2styled>{name}</H2styled>
+                {/* <H4styled>{genresShow}</H4styled> */}
+                {/* <h4>{genres[0]?.name}</h4> */}
+                {/* {genres?.map((ele) => <h4>{ele.name}</h4>)} */}
+                {!genres[0].id?<H4styled>{genresShow}</H4styled>:genres?.map((ele) => <h4>{ele.name}</h4>)}
+                {/* {console.log(genres)}; */}
+                <h6>{rating} ⭐</h6>
+                {/* {image ? <Imgcard src={image} alt={name} width="300px" height="180px"/> : <Imgcard src='https://e.rpp-noticias.io/xlarge/2022/10/18/181618_1331626.jpg' alt={name} width="300px" height="180px"/>} */}
+                <img src={image} width="300px" height="180px"/>
+            </div>
         </DivCard>
     )
 }

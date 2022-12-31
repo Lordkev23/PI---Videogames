@@ -19,12 +19,12 @@ const getApiInformation = async () => {
         return ({
             id: element.id,
             name: element.name,
-            //description: element.description,
+            description: element.description,
             released: element.released,
             rating: element.rating,
             platforms: element.platforms.map(element => element.platform.name),
             genres: element.genres.map(element => element.name),
-            background_image: element.background_image
+            image: element.background_image
         })})
     
     return apiInformation;
@@ -140,7 +140,9 @@ const postVideogames = async(req, res) => {
         released,
         rating,
         platforms,
-        genres 
+        genres,
+        image
+        
     } = req.body
 
     const videogameCreated = await Videogame.create({
@@ -150,7 +152,8 @@ const postVideogames = async(req, res) => {
         released,
         rating,
         platforms,
-        genres
+        genres,
+        image
     })
 
     const genresDb = await Genres.findAll({
@@ -160,4 +163,17 @@ const postVideogames = async(req, res) => {
     res.send('videogame created successfully!')
 }
 
-module.exports = { getVideogames, postVideogames, getVideogameByName }
+const deleteVideogames = async(req, res) => {
+  const { name } = req.params;
+  console.log('Delte of: ', name);
+  try {
+    const eliminate = await Videogame.destroy({
+      where: {name: `${name}`}
+    })
+  } catch (error) {
+    res.send(`Error in route /videogames/delete ${error}`)
+  }
+  res.send('Videogame has been deleted!')
+}
+
+module.exports = { getVideogames, postVideogames, getVideogameByName, deleteVideogames, getAllVideogames }

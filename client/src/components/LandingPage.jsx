@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { getVideogames, getGenres, getPlatforms, sortVideogames } from '../actions/index';
 import styled from "styled-components";
 
 const BotonColor = styled.button`
@@ -43,13 +45,31 @@ display: block;
 `
 
 export default function LandingPage(){
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getPlatforms())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getGenres())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getVideogames())
+    }, [dispatch])
+
+    function handleSortVideogames(event){
+        dispatch(sortVideogames('asc'))
+    }
+
     return (
         <DivStyle>
             <DivCard>
                 <H1styled>Welcome to my Videogame Page</H1styled>
             </DivCard>
             <Link to = '/home'>
-            <BotonColor>Enter</BotonColor>
+            <BotonColor onClick={handleSortVideogames}>Enter</BotonColor>
             </Link>
         </DivStyle>
     )

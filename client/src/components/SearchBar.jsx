@@ -1,4 +1,7 @@
+import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import getVideogameName from '../actions/index';
 import styled from 'styled-components';
 
 const Search = styled.div`
@@ -23,22 +26,25 @@ const Input = styled.input`
    margin: 0px 40px 0px 0px;
 `
 
-export default function SearchBar(props) {
-   console.log(props)
+export default function SearchBar() {
+    const dispatch = useDispatch()
+    const [searchVideogame, setSearchVideogame] = useState('')
    
-   const [searchVideogame, setSearchVideogame] = useState('')
-   
-   function handleChange(evento){
-    setSearchVideogame(evento.target.value);
+   function handleInputChange(event){
+    event.preventDefault()
+    setSearchVideogame(event.target.value);
    }
    
-  
+   function handleSubmit(event){
+        event.preventDefault()
+        dispatch(getVideogameName(searchVideogame))
+        setSearchVideogame('')
+   }
 
    return (
       <Search>
-         <Input type="search" value={searchVideogame} onChange={handleChange}/>
-         <Boton onClick={() => props.onSearch(searchVideogame)}>Agregar</Boton> 
-       
+         <Input onChange={(event) => handleInputChange(event)} type="text" placeholder="Search by name" value={searchVideogame} />
+         <Boton onClick={(event) => handleSubmit(event)} type='submit'>Search</Boton> 
       </Search>
    );
 }
