@@ -36,7 +36,7 @@ export default function CreateVideogame(){
         rating: '',
         genres: [],
         platforms: [],
-        image_background: " "
+        image: ' '
     })
 
 
@@ -59,6 +59,7 @@ export default function CreateVideogame(){
             ...input,
             [event.target.name]: event.target.value
         })
+        console.log(input);
         setErrors(validate ({
             ...input,
             [event.target.name]: event.target.value
@@ -109,7 +110,7 @@ export default function CreateVideogame(){
             rating: 0,
             genres: [],
             platforms: [],
-            image_background: " "
+            image: ' '
         })
         history.push('/home')
     }
@@ -185,9 +186,9 @@ export default function CreateVideogame(){
                         )}
                         </div>
              
-                        {/* <label>
-                            <input  onChange={handleOnChange}/>
-                        </label> */}
+                        <label>Image:</label>
+                            <input onChange={handleOnChange} value={input.image} name='image'/>
+                        
 
                         <button type="submit">Add Videogame</button>
                         <span>

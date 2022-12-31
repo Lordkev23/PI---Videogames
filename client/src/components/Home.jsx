@@ -117,8 +117,8 @@ export default function Home(){
                 <div>
                     <select onChange={element => handleFilterGenres(element)}>
                         <option>Genres 🕹️</option>
-                        {allGenres.sort().map(element => {
-                            return <option value={element}>{element}</option>
+                        {allGenres.sort().map((element, key) => {
+                            return <option key={key} value={element}>{element}</option>
                         })}
                     </select>
                 </div>
@@ -158,9 +158,9 @@ export default function Home(){
                 </div>
 
                 <div>
-                    {currentVideogames && currentVideogames.map(element =>{ 
+                    {currentVideogames && currentVideogames.map((element, key) =>{ 
                         return(
-                        <div key={element.id}>
+                        <div key={key}>
                             <Link to={`/videogame/${element.id}`}>
                                 <Card
                                     name={element.name} 
