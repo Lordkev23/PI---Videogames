@@ -2,16 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 const Botonse = styled.button`
-height: 30px;
+height: 28px;
 width: 70px;
 color:white;
 background-color: red;
-border-radius: 12%;
-font-size: medium;
+border-radius: 10%;
+font-size: small;
 &:hover{
 color:white;
 background-color: #f14646;
-border-radius: 12%;
+border-radius: 10%;
 font-size: large;
 }
 `
@@ -36,7 +36,7 @@ export default function Paginated({videogamesPerPage, allVideogames, currentPage
             <UlChange className="pagination">
                 {pageNumber && pageNumber.map((number, index) => {
                     return (
-                    <LiChange  key={number}>
+                    <LiChange  key={index}>
                         <Botonse className="number" onClick={()=>paginated(number)}>{number}</Botonse>
                     </LiChange>
                 )})}

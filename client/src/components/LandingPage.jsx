@@ -28,7 +28,7 @@ font-family: 'Times New Roman', Times, serif;
 
 const DivStyle = styled.div`
 margin-top: 3%;
-background-color: #e4f4f5cf;
+background-color: #ffffffcc;
 border-radius: 10px;
 border: solid 0px;
 display: block;
@@ -37,7 +37,7 @@ display: block;
 `
 const DivCard = styled.div`
 margin-top: 3%;
-background-color: #e4f4f5cf;
+background-color: #fffffff9;
 border-radius: 10px;
 border: solid 0px;
 display: block;

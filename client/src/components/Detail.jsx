@@ -4,6 +4,34 @@ import { Link } from "react-router-dom";
 import { getVideogamesId } from "../actions";
 import styled from "styled-components";
 
+const DivCard = styled.div`
+margin-top: 3%;
+background-color: #ffffffa7;
+border-radius: 10px;
+border: solid 2px;
+display: inline-block;
+&:hover{
+background-color: #ffffffef;
+border-radius: 10px;
+border: solid 2px;
+display: inline-block;
+}
+`
+const BotonColor = styled.button`
+height: 30px;
+width: 80px;
+color:white;
+background-color: #35aedf;
+border-radius: 5%;
+font-size: medium;
+&:hover{
+color:white;
+background-color: #b5cdd4;
+border-radius: 5%;
+font-size: large;
+}
+`
+
 export default function Detail(props){
     const dispatch = useDispatch()
 // console.log(props);
@@ -19,12 +47,12 @@ export default function Detail(props){
 
     console.log(date,' hola');
     return(
-        <div>
+        <DivCard>
             <div>
                 <div>
                     
                     <Link to='/home'>
-                        <button>Home</button>
+                        <BotonColor>Home</BotonColor>
                     </Link>
                     <h2>{detailes.name} Details</h2>
                 </div>
@@ -41,6 +69,6 @@ export default function Detail(props){
                 <h4>{`Platforms: ${detailes.platforms}`}</h4>
                 {detailes.genres&&<h4>Geners:{genres.join()}</h4>}
             </div>
-        </div>
+        </DivCard>
     )
 }

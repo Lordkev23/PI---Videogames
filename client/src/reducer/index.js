@@ -123,7 +123,8 @@ function rootReducer (state = initialState, action){
             }
             
         case 'GET_GAMES_CREATED':
-            const creados= action.payload === 'DB' ? state.gamesCreated_Global  : action.payload === 'API' ? state.allVideogames_Global.slice(-100):state.allVideogames_Global
+            const creados = action.payload === 'DB' ? state.gamesCreated_Global  : 
+            action.payload === 'API' ? state.allVideogames_Global.slice(0,100):state.allVideogames_Global
             return{
                 ...state,
                 videogames_Global: creados

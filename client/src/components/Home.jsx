@@ -12,27 +12,56 @@ import {
 } from "../actions";
 import Card from "./Card";
 import Paginated from "./Paginated";
-import CreateVideogame from "./CreateVideogame";
 import SearchBar from "./SearchBar";
 import styled from "styled-components";
 
 const BotonColor = styled.button`
-height: 50px;
-width: 120px;
+height: 30px;
+width: 200px;
 color:white;
 background-color: #20be5d;
-border-radius: 15%;
+border-radius: 5%;
 font-size: medium;
 font-family: 'Times New Roman', Times, serif;
 &:hover{
 color:white;
 background-color: #42f191;
-border-radius: 15%;
+border-radius: 5%;
 font-size: large;
 font-family: 'Times New Roman', Times, serif;
 }
 `
-
+const BotonColor2 = styled.button`
+height: 30px;
+width: 220px;
+color:white;
+background-color: #beb320;
+border-radius: 5%;
+font-size: medium;
+font-family: 'Times New Roman', Times, serif;
+&:hover{
+color:white;
+background-color: #cbf142;
+border-radius: 5%;
+font-size: large;
+font-family: 'Times New Roman', Times, serif;
+}
+`
+const DivCard = styled.div`
+margin-top: 3%;
+background-color: #ffffff60;
+border-radius: 10px;
+border: none;
+display: inline-flex;
+text-align: center;
+&:hover{
+background-color: #ffffffcf;
+border-radius: 10px;
+border: none;
+display: inline-flex;
+text-align: center;
+}
+`
 
 export default function Home(){
     const dispatch = useDispatch()
@@ -54,24 +83,14 @@ export default function Home(){
     useEffect(() => {
         dispatch(getVideogames())
     }, [dispatch])
-
-    // function handleClick(event){
-    //     event.preventDefault();
-    //     dispatch(getVideogames());
-    // }
-
      
     useEffect(() => {
         dispatch(getGenres())
     }, [dispatch])
-    const genreses = useSelector(state => state.genres_Global)
+    
     const handleFilterGenres = (event) =>{
         dispatch(filterVideogamesPerGenre(event.target.value)); setCurrentPage(1)
         }
-    function handleOriginFilter(event){
-        dispatch(videogamesOrigin(event.target.value))
-        setCurrentPage(1)
-    }
 
     function handleAll(){
         dispatch(videogamesOrigin('All'))
@@ -96,24 +115,17 @@ export default function Home(){
                 <div>
                     <SearchBar/>
                 </div>
+                <DivCard>
+                    <div>
+                        <BotonColor onClick={event => handleAll(event)}>Load All Videogames</BotonColor>
+                    </div>
 
-                <div>
-                    <BotonColor onClick={event => handleAll(event)}>Load All Videogames</BotonColor>
-                </div>
-
-                <div>
-                    <Link to = '/videogame'>
-                        <button>Create Your Videogame 🎮</button>
-                    </Link>
-                </div>
-                {/* <div>
-                    <select onClick={handleFilterGenres}>
-                                <option value='null'>Genres 🕹️</option>
-                                {genreses&&genreses.map((i,key)=> 
-                                        <option value={i} key={key}>{i}</option>)}
-                        </select>
-                </div> */}
-
+                    <div>
+                        <Link to = '/videogame'>
+                            <BotonColor2>Create Your Videogame 🎮</BotonColor2>
+                        </Link>
+                    </div>
+                </DivCard>
                 <div>
                     <select onChange={element => handleFilterGenres(element)}>
                         <option>Genres 🕹️</option>
@@ -133,7 +145,6 @@ export default function Home(){
                
                 <div>
                     <select onChange={element => hadleSortVideogames(element)} onBlur={element => hadleSortVideogames(element)}>
-                        {/* <option value = 'alfabeticOrder'>Alfabetic Order ⬆️⬇️</option> */}
                         <option value = 'asc'>SORT</option>
                         <option value = 'asc'>forward ⬆️</option>
                         <option value = 'des'>Backeard ⬇️</option>
@@ -142,13 +153,6 @@ export default function Home(){
                     </select>
                 </div>
 
-                {/* <div>
-                    <select>
-                        <option value = 'rating'>Rating 🌟</option>
-                        <option value = 'good'>Good👍🏻</option>
-                        <option value = 'bad'>Bad👎🏻</option>
-                    </select>
-                </div> */}
             </div>
 
                 <div>

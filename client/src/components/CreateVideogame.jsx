@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import {postVideogame, getVideogames} from "../actions/index";
-import styled from "styled-components";
 import { useEffect } from "react";
 import {getGenres, getPlatforms} from "../actions/index"
+import styled from "styled-components";
 
 const H1styled = styled.h1`
 display: flex;
@@ -13,6 +13,86 @@ color: #386eb1;
 font-style: oblique;
 font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 `
+const DivCard = styled.div`
+margin-top: 3%;
+background-color: #ffffff60;
+border-radius: 10px;
+border: solid 2px;
+display: inline-block;
+&:hover{
+background-color: #ffffffcf;
+border-radius: 10px;
+border: solid 2px;
+display: inline-block;
+}
+`
+const BotonColor = styled.button`
+height: 30px;
+width: 170px;
+color:white;
+background-color: #35aedf;
+border-radius: 5%;
+font-size: medium;
+&:hover{
+color:white;
+background-color: #b5cdd4;
+border-radius: 5%;
+font-size: large;
+}
+`
+const UlChange = styled.ul`
+display: inline;
+list-style: none;
+`
+const LiChange = styled.li`
+display: inline;
+list-style: none;
+`
+const Input = styled.input`
+   padding: 5px;
+   width: 240px;
+   height: 20px;
+   border-width: 100%;
+   background-color: #f1d47b;
+   color: black;
+   border-radius: 5px;
+   font-size: 13px;
+   margin: 0px 40px 0px 0px;
+   &:hover{
+      padding: 5px;
+   width: 240px;
+   height: 20px;
+   border-width: 100%;
+background-color: #f1d37bcf;
+color: black;
+   border-radius: 5px;
+   font-size: 13px;
+   margin: 0px 40px 0px 0px;
+   }
+`
+const TexTarea = styled.textarea`
+   padding: 5px;
+   width: 500px;
+   height: 100px;
+   border-width: 100%;
+   background-color: #f1d47b;
+   color: black;
+   border-radius: 5px;
+   font-size: 13px;
+   margin: 0px 40px 0px 0px;
+   &:hover{
+      padding: 5px;
+   width: 500px;
+   height: 100px;
+   border-width: 100%;
+background-color: #f1d37bcf;
+color: black;
+   border-radius: 5px;
+   font-size: 13px;
+   margin: 0px 40px 0px 0px;
+   }
+`
+
 function validate(input){
     let errors = {}
     if(!input.name){
@@ -122,7 +202,7 @@ export default function CreateVideogame(){
 //   }
     //
     return (
-        <div>
+        <DivCard>
             <div>
                 <H1styled>Add your Own Videogame and watting because it's Coming...</H1styled>
                 <form onSubmit={handleSubmit}>
@@ -131,7 +211,7 @@ export default function CreateVideogame(){
                     <div>
                         <div>
                         <label>Videogame Name:</label>
-                        <input onChange={handleOnChange} onBlur={handleOnChange} type='text' name='name' value={input.name}/>
+                        <Input onChange={handleOnChange} onBlur={handleOnChange} type='text' name='name' value={input.name}/>
                         {errors.name && (
                             <p>{errors.name}</p>
                         )}
@@ -139,17 +219,17 @@ export default function CreateVideogame(){
 
                         <div>
                             <label>Description:</label>
-                            <textarea onChange={handleOnChange} type='text' name='description' value={input.description}/>
+                            <TexTarea onChange={handleOnChange} type='text' name='description' value={input.description}/>
                         </div>
 
                         <div>
                         <label>Released date:</label>
-                        <input onChange={handleOnChange} type='text' name='released' value={input.released} placeholder='YYYY-MM-DD'/>
+                        <Input onChange={handleOnChange} type='text' name='released' value={input.released} placeholder='YYYY-MM-DD'/>
                         </div>
 
                         <div>
                         <label>Rating:</label>
-                        <input onChange={handleOnChange} onBlur={handleOnChange} type='text' name='rating' value={input.rating} placeholder='ex 4.3'/>
+                        <Input onChange={handleOnChange} onBlur={handleOnChange} type='text' name='rating' value={input.rating} placeholder='ex 4.3'/>
                         {errors.rating && (
                             <p>{errors.rating}</p>
                         )}
@@ -162,11 +242,11 @@ export default function CreateVideogame(){
                                 return <option key={key} value={element}>{element}</option>
                             })}
                         </select>
-                        <ul>
-                            <li>
+                        <UlChange>
+                            <LiChange>
                             {input.genres.map((element) => element + ' ,')}
-                            </li>
-                        </ul>
+                            </LiChange>
+                        </UlChange>
                         </div>
 
                         <div>
@@ -176,33 +256,35 @@ export default function CreateVideogame(){
                                  <option key={key} value={element}>{element}</option>
                             )}
                         </select>
-                        <ul className="ul">
-                            <li>
+                        <UlChange className="ul">
+                            <LiChange>
                                 {input.platforms.map(element => element + ' ,')}
-                            </li>
-                        </ul>
+                            </LiChange>
+                        </UlChange>
                         {errors.platforms && (
                             <p>{errors.platforms}</p>
                         )}
                         </div>
-             
-                        <label>Image:</label>
-                            <input onChange={handleOnChange} value={input.image} name='image'/>
-                        
 
-                        <button type="submit">Add Videogame</button>
-                        <span>
-                            <Link to='/home'>
-                                <button>Go back to Home</button>
-                            </Link>
-                        </span>
+                        <div>
+                            <label>Image:</label>
+                            <Input onChange={handleOnChange} value={input.image} name='image'/>
+                        </div>
 
+                        <div>
+                            <BotonColor type="submit">Add Videogame</BotonColor>
+                            <span>
+                                <Link to='/home'>
+                                    <BotonColor>Go back to Home</BotonColor>
+                                </Link>
+                            </span>
+                        </div>
                     </div>
 
                 </form>
             </div>
 
-        </div>
+        </DivCard>
         
     )
 }

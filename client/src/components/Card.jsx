@@ -3,15 +3,19 @@ import styled from "styled-components";
 
 const DivCard = styled.div`
 margin-top: 3%;
-background-color: #84eff7cf;
+background-color: #ffffffd8;
 border-radius: 10px;
 border: solid 2px;
 display: inline-block;
+border: solid 1px;
+border-color: gray;
 &:hover{
-background-color: #45c4ebcf;
+background-color: #fffffff9;
 border-radius: 10px;
 border: solid 2px;
 display: inline-block;
+border: solid 3px;
+border-color: black;
 }
 `
 
@@ -22,7 +26,6 @@ border-radius: 10%;
 border: solid 1px;
 border-color: gray;
 border-width: 1.5px;
-
 &:hover{
 display: flex;
 justify-content: center;
@@ -42,7 +45,6 @@ display: flex;
 justify-content: center;
 color: #080a0c;
 text-decoration-line: none;
-
 &:hover{
 display: flex;
 justify-content: center;
@@ -57,7 +59,6 @@ display: flex;
 justify-content: center;
 color: #586879;
 text-decoration-line: none;
-
 &:hover{
 display: flex;
 justify-content: center;
@@ -68,20 +69,15 @@ font-family: 'Times New Roman', Times, serif;
 }
 `
 
-export default function Card({ image, name, genres, rating, createdInDb }){
+export default function Card({ image, name, genres, rating }){
     const genresShow = genres.length && genres.join(", ");
     return(
         <DivCard>
             <div>
                 <H2styled>{name}</H2styled>
-                {/* <H4styled>{genresShow}</H4styled> */}
-                {/* <h4>{genres[0]?.name}</h4> */}
-                {/* {genres?.map((ele) => <h4>{ele.name}</h4>)} */}
-                {!genres[0].id?<H4styled>{genresShow}</H4styled>:genres?.map((ele) => <h4>{ele.name}</h4>)}
-                {/* {console.log(genres)}; */}
+                {!genres[0].id?<H4styled>{genresShow}</H4styled>:genres?.map((ele,key) => <h4 key={key}>{ele.name}</h4>)}
                 <h6>{rating} ⭐</h6>
-                {/* {image ? <Imgcard src={image} alt={name} width="300px" height="180px"/> : <Imgcard src='https://e.rpp-noticias.io/xlarge/2022/10/18/181618_1331626.jpg' alt={name} width="300px" height="180px"/>} */}
-                <img src={image} width="300px" height="180px"/>
+                <Imgcard src={image} width="300px" height="180px"/>
             </div>
         </DivCard>
     )
